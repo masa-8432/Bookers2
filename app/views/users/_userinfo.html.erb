@@ -1,0 +1,36 @@
+
+      <div class="col-xs-3">
+        <h3>User info</h3>
+        <%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%>
+        <table class="table table-hover" style="table-layout:fixed;" >
+          <tr><th>Name</th></tr>
+          <tr><td><%= user.name %></td></tr>
+          <tr><th>Introduction</th></tr>
+          <tr><td><%= user.introduction %></td></tr>
+        </table>
+        <% if user == current_user %>
+          <%= link_to edit_user_path(user.id) do %>
+          <span class="glyphicon glyphicon-cog btn-outline-dark btn-block" aria-hidden="true"></span>
+          <% end %>
+        <% else %>
+          <%= link_to user_path(current_user.id) do %>
+            <span class="glyphicon glyphicon-cog btn-outline-dark btn-block" aria-hidden="true"></span>
+          <% end %>
+        <% end %>
+
+
+        <h3>New book</h3>
+        <%= form_with model: Book.new, local:true do |f| %>
+        <div class="field row">
+          <label for="booktitle">Title</label></br>
+          <%=f.text_field :title, :size => "35*35" %>
+        </div>
+        <div class="field row">
+        <label for="bookoption">Option</label></br>
+        <%=f.text_area :body, :size => "35*35" %>
+        </div>
+        <%=f.submit 'Create Book',class: 'btn btn-primary  btn-block' %>
+        <% end %>
+
+      </div>
+
